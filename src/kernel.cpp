@@ -1,11 +1,13 @@
-// byte Operating System 2.0 (informally byteOS) designed for byteos development board (armv6-m stm32g0) 
-// BITNL 2.0
+// Sleem Operating System STM 2.1 (informally SleemOS) designed for SleemOS STM development board (armv6-m stm32g0) 
+// BITNL 2.1
 // credits: v3x, osdev (credits for software used outside this file in other files)
 
 #include <stdint.h>
 #include "../include/strcmp.h"
-#include "../include/bfs.h"
-#include "../include/bprog.h"
+#include "../include/sleemfs.h"
+#include "../include/sleemint.h"
+#include "../include/badapplecpp.h"
+#define newline uartcharacterplacement("\r\n")
 
 
 volatile uint32_t *rcc_iopenr = (volatile uint32_t *)0x40021034;
@@ -27,7 +29,9 @@ extern uint32_t _bss_start, _bss_end;
 // that was a FUCKTON of copy and pasting the hex
 
 const char* comans;
-
+int peniscum5000 = 0;
+int peniscum6000;
+int overwarn = 0;
 void uart_init() {
 
   *rcc_iopenr |= (1 << 0);   // reset and clock control io enable reg afaik
@@ -93,7 +97,14 @@ void uint32tonumber(uint32_t number) {
   // IM GONNA SERIOUSLY FUCKING DO IT
   }
 }
+    void uint32tohex(uint32_t hex) {
 
+      for(int eyee = 0; eyee < 8; eyee++) {
+      int ihatewritingthisshit = (hex >> 28) & 0xF;
+      pleaseputacharacter(forhexdumping2[ihatewritingthisshit]);
+      hex = hex << 4;
+      }
+    }
 
 volatile uint32_t *usart2_rdr = (volatile uint32_t *)0x40004424; // recieve data register
 
@@ -103,6 +114,7 @@ volatile int readindia = 0;
 
 char givcharacter() {
   while (readindia == writeindia) {
+  __asm volatile("wfi"); // Penis.
   }
   char okiassignedit = storag[readindia];
   readindia = (readindia + 1) & 63;
@@ -111,74 +123,105 @@ char givcharacter() {
 char maxinput[256];
 int howmanycharacterscurrently = 0;
 
-void startanewterm() { uartcharacterplacement("\x1b[32mbyteW>\x1b[0m"); } // hacker green prompt
+void startanewterm() { uartcharacterplacement("\x1b[35msleemsh> \x1b[0m"); } // hacker green prompt // it is purple
 
 void copyshit(char* destination, const char* sourc) {
   while ((*destination++ = *sourc++));
 }
 
 char uparrowshit[256];
-int lecounter = 0;
 int FUCKTHISBULLSHIT = 1;
 int lengthofuparrowshit = 0;
 
 void typepls() {
+  peniscum6000 = 0;
   while (1) {
     char userinputprobably = givcharacter();
+    if(userinputprobably == '\n' && peniscum5000 == 1) {
+      peniscum5000 = 0;
+      continue;
+    }
+    peniscum5000 = 0;
+    if(peniscum6000 == 1) {
+      if(userinputprobably == '[') {
+        peniscum6000 = 2;
+        continue;
+      }
+      else if(userinputprobably == '\x1b') {
+        continue;
+      }
+      else {
+        peniscum6000 = 0;
+      }
+    }
+    else if (peniscum6000 == 2) {
+      if(userinputprobably == 'A') {
+        peniscum6000 = 0;
+        if(FUCKTHISBULLSHIT == 1) {
+          lengthofuparrowshit = 0;
+          while(uparrowshit[lengthofuparrowshit] != '\0') {
+            lengthofuparrowshit++;
+          }
+          while(howmanycharacterscurrently != 0) {
+            uartcharacterplacement("\b \b");
+            howmanycharacterscurrently--;
+          }
+          uartcharacterplacement(uparrowshit);
+          copyshit(maxinput, uparrowshit);
+          howmanycharacterscurrently = lengthofuparrowshit;
+        }
+        continue;
+      }
+      else if(userinputprobably >= 0x40 && userinputprobably <= 0x7E) {
+        peniscum6000 = 0;
+        continue;
+      }
+      else if(userinputprobably >= 0x20 && userinputprobably <= 0x3F) {
+        continue;
+      }
+      else {
+        peniscum6000 = 0;
+      }
+    }
     if (userinputprobably == '\n' || userinputprobably == '\r') {
-
       maxinput[howmanycharacterscurrently] = '\0';
       if(FUCKTHISBULLSHIT == 1) {
-      copyshit(uparrowshit, maxinput);
+        if(howmanycharacterscurrently > 0) {
+          copyshit(uparrowshit, maxinput);
+        }
       }
       howmanycharacterscurrently = 0;
-      lecounter = 0;
-      lengthofuparrowshit = 0;
-      while(maxinput[lecounter] != '\0') {
-        lecounter++;
+      overwarn = 0;
+      if (userinputprobably == '\r') {
+        peniscum5000 = 1;
       }
       return;
     }
     else if (userinputprobably == '\b' || userinputprobably == 0x7f) {
-      if(howmanycharacterscurrently > 0 ) {
-      howmanycharacterscurrently--;
-      uartcharacterplacement("\b \b");
+      if(howmanycharacterscurrently > 0) {
+        howmanycharacterscurrently--;
+        uartcharacterplacement("\b \b");
       }
     }
     else if (userinputprobably == '\x1b') {
-    char getinputig = givcharacter();
-    if (getinputig == '[')    {
-    getinputig = givcharacter();
-    if (getinputig == 'A') {
-    if(FUCKTHISBULLSHIT == 1) {
-    lengthofuparrowshit = 0;
-    while(uparrowshit[lengthofuparrowshit] != '\0') {
-    lengthofuparrowshit++;
-      }
-    while(howmanycharacterscurrently != 0) {
-    uartcharacterplacement("\b \b");
-    howmanycharacterscurrently--; 
+      peniscum6000 = 1;
     }
-      uartcharacterplacement(uparrowshit);
-    copyshit(maxinput, uparrowshit);
-    howmanycharacterscurrently = lengthofuparrowshit;
-    }
-    }
-    }
-    }
-
     else if (howmanycharacterscurrently < 255) {
       maxinput[howmanycharacterscurrently] = userinputprobably;
       howmanycharacterscurrently++;
       pleaseputacharacter(userinputprobably);
     }
     else {
-      uartcharacterplacement("OVERFLOW ERROR, PANIC! (easteregg)");
-      __asm volatile ("udf #0");
+      if(overwarn == 0) {
+        overwarn = 1;
+        newline;
+        uartcharacterplacement("you have typed too much shit and caused an overflow.");
+        newline;
+        pleaseputacharacter('\a');
+      }
     }
   }
 }
-
 
 int echolaid(const char* lllllline, const char* prefik) {
     while (*prefik != '\0') {
@@ -190,20 +233,21 @@ int echolaid(const char* lllllline, const char* prefik) {
     }
     return 1;
 }
+
 int returnvalue; 
 
 
   void termcommandsssss() {
     if (strcmp(comans, "help") == 0) {
-      uartcharacterplacement("\r\nCommands: help, neofetch, clear, uptime, echo, write (BFS), touch (BFS), cat (BFS), ls (BFS), rm (BFS), edit (BFS), panik, reboot, run (bProg), printmcuid\r\n");
+      uartcharacterplacement("\r\nCommands: help, neofetch, clear, uptime, echo, write (SleemFS), touch (SleemFS), cat (SleemFS), ls (SleemFS), rm (SleemFS), edit (SleemFS), panik, reboot, run (SleemInt STM), printmcuid, hexdump (SleemFS), badapple\r\n");
     }
     else if (strcmp(comans, "neofetch") == 0) {
       uint32_t msp;
       __asm volatile ("mrs %0, msp" : "=r" (msp));
-      uartcharacterplacement("\r\nOS: byteOS \r\nBuild: 2.0 \r\nKernel: BitNL 2.0 \r\nRAM: ");
+      uartcharacterplacement("\r\nOS: SleemOS STM \r\nBuild: 2.1 \r\nKernel: BITNL 2.1 \r\nFree RAM: ");
       uintptr_t bieses = reinterpret_cast<uintptr_t>(&_bss_end);
       uint32tonumber(msp - bieses);
-      uartcharacterplacement(" bytes\r\n");
+      uartcharacterplacement(" sleems (joke its bytes) \r\n");
       uartcharacterplacement("MCU: ");
       if((*mcureader & 0x00000FFF) == 0x460) {
         uartcharacterplacement("STM32G070xx");
@@ -212,10 +256,10 @@ int returnvalue;
         uartcharacterplacement("STM32G050xx");
       }
       else if((*mcureader & 0x00000FFF) == 0x466) {
-        uartcharacterplacement("STM32G0B0xx");
+        uartcharacterplacement("STM32G031xx");
       }
       else if((*mcureader & 0x00000FFF) == 0x467) {
-        uartcharacterplacement("STM32G030xx");
+        uartcharacterplacement("STM32G0B1xx");
       }
       else if((*mcureader & 0x00000FFF) == 0x000) {
         uartcharacterplacement("Renode/Unrecognized MCU");
@@ -223,7 +267,7 @@ int returnvalue;
       else {
         uartcharacterplacement("Unrecognized MCU!");
       }
-      uartcharacterplacement("\r\nvthreex 2026, byte Incorporated\r\n");
+      uartcharacterplacement("\r\nv3x 2026, Sleem Electronics and Media Group (SEMG)\r\n"); // only reason its not Media and Electronics is because that is SMEG
     }
     else if (strcmp(comans, "clear") ==  0) {
       uartcharacterplacement("\x1b[2J\x1b[H"); // idk why is it in characters but still its kinda cool
@@ -258,6 +302,11 @@ int returnvalue;
     else if (strcmp(comans, "ls") ==  0) {
       listshit(0);
       }
+    else if (strcmp(comans, "badapple") == 0) {
+      uartcharacterplacement("\r\n");
+      uartcharacterplacement("\r\n");
+      badappl();
+    }
 
     else if (echolaid(comans, "ls ") == 1) {
       if(strcmp(comans + 3, "-l") == 0) {
@@ -273,7 +322,7 @@ int returnvalue;
     }
     else if (echolaid(comans, "run ")) {
       nameofshit = 4;
-      bprogprint(comans + 4);
+      sleemintprint(comans + 4);
       }
     else if (echolaid(comans, "write ") == 1) {
       nameofshit = 6;
@@ -285,9 +334,15 @@ int returnvalue;
               }
  // this is fucking evil bro
       }
+      else if (echolaid(comans, "hexdump ") == 1) {
+        nameofshit = 8;
+        hexshitdump();
+    }    
       else if (strcmp(comans, "reboot") == 0) {
-        *aircr = (0x5FAu << 16) | (1u << 2);
         uartcharacterplacement("\r\n");
+        *aircr = (0x5FAu << 16) | (1u << 2);
+        __asm volatile ("dsb");
+        while(1);
       } 
       else if (echolaid(comans, "rm ") == 1) {
         nameofshit = 3;
@@ -298,14 +353,17 @@ int returnvalue;
         uartcharacterplacement("\r\n");
       }
     else if (strcmp(comans, "uptime") == 0) {
-      uartcharacterplacement("\nUptime: "); // this better fucking work OR FUCKINE ELSE
-      if(tiks <= 60000) {
-      uint32tonumber(tiks / 1000);
+      uint32_t localtiks = tiks;
+      uartcharacterplacement("\r\nUptime: "); // this better fucking work OR FUCKINE ELSE
+      if(localtiks < 60000) {
+      uint32tonumber(localtiks / 1000);
       uartcharacterplacement("s");
       }
-      else if (tiks >= 60000) {
-        uint32tonumber((tiks / 1000) / 60);
-        uartcharacterplacement("m");
+      else {
+        uint32tonumber((localtiks / 1000) / 60);
+        uartcharacterplacement("m ");
+        uint32tonumber((localtiks / 1000) % 60);
+        uartcharacterplacement("s");
       }
 
       uartcharacterplacement("\r\n"); // now i have FUCKING LINKER ERRORS IM GONNA HAVE AFUCKING MENTAL BREAKDOWN
@@ -345,10 +403,11 @@ int returnvalue;
     }
     }
 
-extern "C" void boskernel() { 
+
+extern "C" void sleemmf() { 
   uart_init();
   uartcharacterplacement(
-      "Welcome to byteOS 2.0!\r\n");
+      "Welcome to SleemOS STM 2.1!\r\n");
   checkif();
   while(1) {
     startanewterm();

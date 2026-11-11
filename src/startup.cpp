@@ -1,4 +1,4 @@
-// byte Startup Code designed for byteOS
+// SleemOS STM Startup Code
 // credits: v3x, osdev (credits for software used outside this file in other files)
 
 
@@ -27,15 +27,27 @@ extern volatile uint32_t *usart2_rdr; // recieve data register
 extern uint32_t _data_start, _data_end, _data_flash_start;
 extern uint32_t _bss_start, _bss_end;
 extern uint32_t _endoflestack; // i agree
-extern "C" void boskernel(); // we love the byteos kernel yes we
+extern "C" void sleemmf(); // we love the byteos kernel yes we
 
 extern volatile char storag[64];
 extern volatile int writeindia;
 extern volatile int readindia;
+volatile uint32_t *somethingicr = (volatile uint32_t *)0x40004420;
+
 
 extern "C" void handelr() {
+    uint32_t localusartthing = *usart2_isr;
+    if(localusartthing & (1 << 3)) {
+        *somethingicr = 1 << 3;
+    }
+    if(localusartthing & (1 << 5)) {
     storag[writeindia] = *usart2_rdr;
-    writeindia = (writeindia + 1) & 63;
+        uint32_t localwriteindia = (writeindia + 1) & 63; 
+    if(localwriteindia != readindia) {
+        writeindia = localwriteindia;
+    }
+    }
+
 }
 
 extern "C" void plshandletheresetsalrthx() { // reset handler probably maybe
@@ -54,7 +66,7 @@ while (benis < &_bss_end) {
     *benis = 0;
     benis++;
 }
-boskernel(); // yup yup
+sleemmf(); // yup yup
 while (1) { }
 }
 
@@ -72,13 +84,15 @@ extern "C" void hardfault_shit(uint32_t *stack) {
             uint32_t personalcomputer = stack[6];
             uint32_t elr = stack[5];
             uartcharacterplacement("\r\n");         
-            uartcharacterplacement("Critical error: byteOS hardfault!");         
+            uartcharacterplacement("Critical error: SleemOS STM hardfault!");         
             uartcharacterplacement("\r\n");
             uartcharacterplacement("PC: ");
-            uint32tonumber(personalcomputer);
+            uartcharacterplacement("0x");
+            uint32tohex(personalcomputer);
             uartcharacterplacement("\r\n");
             uartcharacterplacement("LR: ");
-            uint32tonumber(elr);
+            uartcharacterplacement("0x");
+            uint32tohex(elr);
             uartcharacterplacement("\r\n");
         while(1);
 }

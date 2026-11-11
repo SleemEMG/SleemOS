@@ -1,15 +1,17 @@
-// byte File System 4.0 (informally byteFS/BFS) designed for byteOS
+// Sleem File System 6.0 (informally SleemFS) designed for SleemOS STM
 // credits: v3x, osdev (credits for software used outside this file in other files)
 
 #include <stdint.h>
 #include "../include/strcmp.h"
 #include "../include/kernel.h"
-#include "../include/bfs.h"
+#include "../include/sleemfs.h"
+#define newline uartcharacterplacement("\r\n")
     int nameofshit; 
     int forwritingshit;
     int forremovingshit;
     int forlistingshit;
-
+    int forhexdumpingshit;
+    extern const char forhexdumping2[] = "0123456789ABCDEF";
 
 filings shit[15];
 
@@ -17,7 +19,7 @@ void copyshit2(char* destination, const char* sourc) {
   while ((*destination++ = *sourc++));
 }
 
-volatile uint32_t *bfsflashings = (volatile uint32_t *)0x08006000;
+volatile uint32_t *sleemflashings = (volatile uint32_t *)0x08006000;
 volatile uint32_t *flashkeyr = (volatile uint32_t *)0x40022008;
 volatile uint32_t *flashsr = (volatile uint32_t *)0x40022010;
 volatile uint32_t *flashcr = (volatile uint32_t *)0x40022014;
@@ -71,13 +73,13 @@ void saveshit() {
     *flashcr |= (1u << 0);
     uint32_t *tastyshit = (uint32_t *)shit;
     int rottenshit = 0;
-    bfsflashings[0] = 0x42465331;
-    bfsflashings[1] = 4;
+    sleemflashings[0] = 0x534C4653;
+    sleemflashings[1] = 6;
     while((*flashsr & (1u << 16)) == 65536) {
         }
     while (rottenshit < (sizeof(shit) / sizeof(uint32_t))) {
-    bfsflashings[rottenshit + 2] = tastyshit[rottenshit];
-    bfsflashings[rottenshit + 3] = tastyshit[rottenshit + 1];
+    sleemflashings[rottenshit + 2] = tastyshit[rottenshit];
+    sleemflashings[rottenshit + 3] = tastyshit[rottenshit + 1];
     while ((*flashsr & (1u << 16)) != 0) {
     }
     rottenshit += 2;
@@ -90,7 +92,7 @@ void loadshit() {
     uint32_t *tastyshit2  = (uint32_t *)shit;
     int simonsscatfetish = 0;
     while (simonsscatfetish < (sizeof(shit) / sizeof(uint32_t))) {
-        tastyshit2[simonsscatfetish] = bfsflashings[simonsscatfetish + 2];
+        tastyshit2[simonsscatfetish] = sleemflashings[simonsscatfetish + 2];
         simonsscatfetish++;
     }
 
@@ -241,19 +243,20 @@ if(shit[0].ifusedornotused == false) {
     }
 }
 
+
     void checkif() {
-        if(bfsflashings[0] == 0x42465331) {
-            if(bfsflashings[1] == 4) {
+        if(sleemflashings[0] == 0x534C4653) {
+            if(sleemflashings[1] == 6) {
             loadshit();
             }
             else {
-            uartcharacterplacement("Incompatible filesystem version! Writing ByteFS 4.0");
+            uartcharacterplacement("Incompatible filesystem version! Writing SleemFS 6");
             uartcharacterplacement("\r\n");
             saveshit();  
             }
         }
         else {
-            uartcharacterplacement("Invalid filesystem, writing ByteFS 4.0...");
+            uartcharacterplacement("Invalid filesystem, writing SleemFS 6...");
             uartcharacterplacement("\r\n");
             saveshit();
         }
@@ -271,12 +274,38 @@ if(shit[0].ifusedornotused == false) {
         uartcharacterplacement("\r\n");
         uartcharacterplacement("Edit: ");
         typepls();
-        shit[forwritingshit].sizeofdoomscroll = lecounter;
+        int icutmyfuckingfinger = 0;
+        while(comans[icutmyfuckingfinger] != '\0') {
+        icutmyfuckingfinger++;
+        }
+        shit[forwritingshit].sizeofdoomscroll = icutmyfuckingfinger;
         uartcharacterplacement("\r\n");
         copyshit2(shit[forwritingshit].doomscroll, comans);
         return 1;
     }
     }
+    void hexshitdump() {
+    forhexdumpingshit = findshit(comans + nameofshit); 
+    
+      if(forhexdumpingshit == -1) {
+        uartcharacterplacement("\r\n");
+        uartcharacterplacement("Invalid file!");
+        uartcharacterplacement("\r\n");
+        return;
+      }
+      for(int eye = 0; eye < shit[forhexdumpingshit].sizeofdoomscroll; eye++) {
+        unsigned char hexshit = shit[forhexdumpingshit].doomscroll[eye];
+      int hexup = hexshit >> 4;
+      int hexlo = hexshit & 0x0F;
+      char hexput[4];
+      newline;
+      uartcharacterplacement("0x");
+      pleaseputacharacter(forhexdumping2[hexup]);
+      pleaseputacharacter(forhexdumping2[hexlo]);
+      newline;
+      }
+    }
+
 
     int readshit() {
         int forreadingshit;

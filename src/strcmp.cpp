@@ -1,7 +1,9 @@
+// strcmp from embeddedartistry.github.io (MIT) (for BITNL kernel)
+// credits: v3x, embeddedartistry.github.io
+
 #include <stddef.h>
 
-// strcmp from embeddedartistry.github.io (MIT) (for byteos kernel)
-// credits: v3x, embeddedartistry.github.io
+
 
 
 int strcmp(const char *s1, const char *s2) {

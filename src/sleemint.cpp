@@ -1,11 +1,13 @@
-// byte Programming Interpreter 2.0 (informally bProg) designed for byteOS
+// Sleem Interpreter 2.0 (informally SleemInt) designed for SleemOS STM
 // credits: v3x, osdev (credits for software used outside this file in other files)
 
 #include "../include/kernel.h"
 #include "../include/strcmp.h"
-#include "../include/bfs.h"
+#include "../include/sleemfs.h"
+#define newline uartcharacterplacement("\r\n")
 
-void bprogprint(const char* filenam) {
+
+void sleemintprint(const char* filenam) {
     int indexofshit = findshit(filenam);
 int leng = 0;
 while (filenam[leng] != '\0') {
@@ -15,7 +17,7 @@ if(leng > 3) {
 }
      else {
                 uartcharacterplacement("\r\n");
-                uartcharacterplacement("File is not a bProg program or doesn't exist!");
+                uartcharacterplacement("File is not a SleemInt program or doesn't exist!");
                 uartcharacterplacement("\r\n");
                 return;
                 
@@ -25,25 +27,25 @@ if(leng > 3) {
         }
      else {
                 uartcharacterplacement("\r\n");
-                uartcharacterplacement("File is not a bProg program or doesn't exist!");
+                uartcharacterplacement("File is not a SleemInt program or doesn't exist!");
                 uartcharacterplacement("\r\n");
                 return;
                 
             }
-        if (filenam[leng - 2] == 'b') {
+        if (filenam[leng - 2] == 's') {
         }
                     else {
                 uartcharacterplacement("\r\n");
-                uartcharacterplacement("File is not a bProg program or doesn't exist!");
+                uartcharacterplacement("File is not a SleemInt program or doesn't exist!");
                 uartcharacterplacement("\r\n");
                 return;
                     }
 
-        if (filenam[leng - 1] == 'p') {
+        if (filenam[leng - 1] == 'i') {
         }
                 else {
                 uartcharacterplacement("\r\n");
-                uartcharacterplacement("File is not a bProg program or doesn't exist!");
+                uartcharacterplacement("File is not a SleemInt program or doesn't exist!");
                 uartcharacterplacement("\r\n");
                 return; // yanderedev reference
             }
