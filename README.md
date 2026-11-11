@@ -1,4 +1,4 @@
-<img width="300" alt="Logo (4)" src="https://github.com/user-attachments/assets/a8c3e7ef-c88a-4c7a-8d6c-3ff36cd6a040" />
+<img width="300" alt="logo" src="https://github.com/user-attachments/assets/9b15c624-e511-433c-a799-9323c64acd26" />
 
 # SleemOS STM
 > SleemOS STM is an OS written in C++ for ARMv6-M!
