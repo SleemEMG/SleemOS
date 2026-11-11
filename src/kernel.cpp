@@ -123,7 +123,7 @@ char givcharacter() {
 char maxinput[256];
 int howmanycharacterscurrently = 0;
 
-void startanewterm() { uartcharacterplacement("\x1b[35msleemsh> \x1b[0m"); } // hacker green prompt // it is purple
+void startanewterm() { uartcharacterplacement("\x1b[38;5;141mSleemSH> \x1b[0m"); } // hacker green prompt // it is purple
 
 void copyshit(char* destination, const char* sourc) {
   while ((*destination++ = *sourc++));

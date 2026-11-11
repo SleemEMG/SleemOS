@@ -26,9 +26,13 @@ volatile uint32_t *flashcr = (volatile uint32_t *)0x40022014;
 
 
 void flashingsunlockings() {
-*flashkeyr = 0x45670123;
-*flashkeyr = 0xCDEF89AB;
-if ((*flashcr & (1u << 31)) == 0) { // this is some fucking bullshit
+
+    if(*flashcr & (1u << 31)) {
+    *flashkeyr = 0x45670123;
+    *flashkeyr = 0xCDEF89AB; 
+    }
+    else {
+    }
     while((*flashsr & (1u << 16)) == 65536) {
    }
     *flashcr &= ~(0x3FFu << 3);
@@ -65,7 +69,6 @@ if ((*flashcr & (1u << 31)) == 0) { // this is some fucking bullshit
     while((*flashsr & (1u << 16)) == 65536) {
     }
     *flashcr &= ~(1u << 1); 
-}
 }
 
 void saveshit() {
