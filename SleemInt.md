@@ -1,4 +1,5 @@
-<img width="300" alt="Logo (4)" src="https://github.com/user-attachments/assets/a8c3e7ef-c88a-4c7a-8d6c-3ff36cd6a040" />
+<img width="300" alt="logo" src="https://github.com/user-attachments/assets/8f879bed-c4a8-4658-81e2-2c67ca223106" />
+
 
 # SleemInt
 
