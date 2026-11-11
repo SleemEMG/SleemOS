@@ -12,8 +12,8 @@ jobs:
       - name: build
         run: make
       - name: size
-        run: arm-none-eabi-size byteos.elf
+        run: arm-none-eabi-size SleemOS.elf
       - uses: actions/upload-artifact@v4
         with:
-          name: byteos-bin
-          path: byteos.bin
+          name: SleemOS-bin
+          path: SleemOS.bin
