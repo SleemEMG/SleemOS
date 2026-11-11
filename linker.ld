@@ -1,4 +1,4 @@
-/* bos linker  for bos development board (byteos) */
+/* SleemOS linker  for SleemOS development board */
     /* love v3x 2026 */
 
 ENTRY(plshandletheresetsalrthx) /* pointless ass shit */
@@ -6,7 +6,7 @@ ENTRY(plshandletheresetsalrthx) /* pointless ass shit */
 MEMORY {
     FLASH : ORIGIN = 0x08000000, LENGTH = 24K
     RAM  (rwx)  : ORIGIN = 0x20000000, LENGTH = 12K /* fixed ram/flash size cuz was outdated iggg */
-    BFSFLASHINGS : ORIGIN = 0x08006000, LENGTH = 8k
+    SLEEMFLASHINGS : ORIGIN = 0x08006000, LENGTH = 8k
 }
 
 _endoflestack = ORIGIN(RAM) + LENGTH(RAM);
