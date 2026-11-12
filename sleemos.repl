@@ -1,0 +1,25 @@
+using "platforms/cpus/stm32g0.repl"
+
+flash_ctrl: @ none
+
+g0_flash_ctrl: Python.PythonPeripheral @ sysbus 0x40022000
+    size: 0x400
+    initable: false
+    script: "request.Value = 0"
+
+flash:
+    size: 0x8000
+
+ram:
+    size: 0x3000
+
+nvic:
+    systickFrequency: 12000000
+
+usart2:
+    frequency: 12000000
+
+dbgmcu: Python.PythonPeripheral @ sysbus 0x40015800
+    size: 0x4
+    initable: false
+    script: "request.Value = 0x466"

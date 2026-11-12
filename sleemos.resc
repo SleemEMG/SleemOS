@@ -1,0 +1,13 @@
+$bin?=@https://github.com/SleemEMG/SleemOS/releases/latest/download/SleemOS.bin
+mach create "SleemOS"
+machine LoadPlatformDescription @https://github.com/SleemEMG/SleemOS/sleemos.repl
+
+macro reset
+"""
+    sysbus LoadBinary $bin 0x08000000
+    sysbus.cpu VectorTableOffset 0x08000000
+"""
+runMacro $reset
+
+showAnalyzer sysbus.usart2
+start
