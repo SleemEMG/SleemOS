@@ -9,14 +9,44 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  firmware:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y gcc-arm-none-eabi
       - run: make
-      - uses: softprops/action-gh-release@v2
+      - uses: actions/upload-artifact@v4
         with:
-          files: |
+          name: firmware
+          path: |
             SleemOS.bin
             SleemOS.elf
+
+  host-tool:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build sleemfsdk
+        shell: bash
+        run: g++ -O2 bfstools/sleemfsdk.cpp -o sleemfsdk.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hosttool
+          path: sleemfsdk.exe
+
+  release:
+    needs: [firmware, host-tool]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          prerelease: true
+          generate_release_notes: true
+          files: |
+            dist/SleemOS.bin
+            dist/SleemOS.elf
+            dist/sleemfsdk.exe
