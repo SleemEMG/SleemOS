@@ -23,6 +23,12 @@ make all
 ## Features
 SleemOS has a filesystem, a programming interpreter and commands like: `help, neofetch, clear, uptime, echo, write (SleemFS), touch (SleemFS), cat (SleemFS), ls (SleemFS), rm (SleemFS), edit (SleemFS), panik, reboot, run (SleemInt STM), printmcuid, hexdump (SleemFS) and badapple`
 
+## Showcases
+
+SleemOS running Bad Apple. <br>
+<img width="1920" height="1080" alt="SleemApple" src="https://github.com/user-attachments/assets/956a7dfd-e67c-47bf-8161-554b0bdc043b" />
+
+
 ## Credits
 * **wagiminator/Stefan Wagner** - For their original board that I based my board off of.
 * **Trao-X** - For improving the clarity of the README.
