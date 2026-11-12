@@ -9,5 +9,7 @@ macro reset
 """
 runMacro $reset
 
+emulation CreateServerSocketTerminal 12345 "sleemos-uart" false
+connector Connect sysbus.usart2 sleemos-uart
 showAnalyzer sysbus.usart2
 start
