@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: build sleemfsdk
         shell: bash
-        run: g++ -O2 bfstools/sleemfsdk.cpp -o sleemfsdk.exe
+        run: g++ -O2 sleemfsdk/sleemfsdk.cpp -o sleemfsdk.exe
       - uses: actions/upload-artifact@v4
         with:
           name: hosttool
