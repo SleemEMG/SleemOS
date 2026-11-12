@@ -25,7 +25,7 @@ SleemOS has a filesystem, a programming interpreter and commands like: `help, ne
 
 ## Showcases
 
-SleemOS running Bad Apple. <br>
+>SleemOS running Bad Apple. <br><br>
 <img width="1920" height="1080" alt="SleemApple" src="https://github.com/user-attachments/assets/956a7dfd-e67c-47bf-8161-554b0bdc043b" />
 
 
