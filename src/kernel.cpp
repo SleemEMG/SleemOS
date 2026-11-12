@@ -1,5 +1,5 @@
-// Sleem Operating System STM 2.1 (informally SleemOS) designed for SleemOS STM development board (armv6-m stm32g0) 
-// BITNL 2.1
+// Sleem Operating System STM 2.2 (informally SleemOS) designed for SleemOS STM development board (armv6-m stm32g0) 
+// BITNL 2.2
 // credits: v3x, osdev (credits for software used outside this file in other files)
 
 #include <stdint.h>
@@ -244,7 +244,7 @@ int returnvalue;
     else if (strcmp(comans, "neofetch") == 0) {
       uint32_t msp;
       __asm volatile ("mrs %0, msp" : "=r" (msp));
-      uartcharacterplacement("\r\nOS: SleemOS STM \r\nBuild: 2.1 \r\nKernel: BITNL 2.1 \r\nFree RAM: ");
+      uartcharacterplacement("\r\nOS: SleemOS STM \r\nBuild: 2.2 \r\nKernel: BITNL 2.2 \r\nFree RAM: ");
       uintptr_t bieses = reinterpret_cast<uintptr_t>(&_bss_end);
       uint32tonumber(msp - bieses);
       uartcharacterplacement(" sleems (joke its bytes) \r\n");
@@ -307,6 +307,83 @@ int returnvalue;
       uartcharacterplacement("\r\n");
       badappl();
     }
+    else if(echolaid(comans, "recv ") == 1) {
+      uint32_t localtime = tiks;
+      bool shitwentwrong = false;
+      const char* nameofshit2 = 0;
+            nameofshit = 5;
+      if(comans[nameofshit] == '\0') {
+        uartcharacterplacement("\r\n");
+        uartcharacterplacement("Filename cannot be empty!");
+        uartcharacterplacement("\r\n");
+
+      }
+      else {
+        nameofshit2 = comans + nameofshit;
+        newline;
+              uartcharacterplacement("SFSDKHS");
+              localtime = tiks;
+      if(readindia != writeindia) {
+      }
+      else {
+        while(readindia == writeindia) {
+          if(tiks - localtime > 3600) {
+          uartcharacterplacement("ERROR: Host timeout.");
+          newline;
+          shitwentwrong = true;
+          break;
+          }
+        }
+      }
+      unsigned char filesize = 0;
+      if(!shitwentwrong) {
+        filesize = givcharacter();
+        localtime = tiks;
+      }
+      char filesizearray[256];
+      for(int filesizecounter = 0; filesizecounter < filesize; filesizecounter++) {
+      if(readindia != writeindia) {
+      }
+      else {
+        while(readindia == writeindia) {
+          if(tiks - localtime > 3600) {
+          uartcharacterplacement("ERROR: Host timeout.");
+          newline;
+          shitwentwrong = true;
+          break;
+          }
+        }
+      }
+        if(shitwentwrong) break;
+        filesizearray[filesizecounter] = givcharacter();
+        localtime = tiks;
+        
+      }
+      filesizearray[filesize] = '\0';
+      if(!shitwentwrong) {
+      returnvalue = createshit(nameofshit2);
+      uartcharacterplacement("\r\n");
+              if(returnvalue == 1) {
+      int indexofnameofshit2 = findshit(nameofshit2);
+      copyshit(shit[indexofnameofshit2].doomscroll, filesizearray);
+      shit[indexofnameofshit2].sizeofdoomscroll = filesize;
+      saveshit();
+      uartcharacterplacement("fuck you (OK)");
+      newline;
+    }
+    else {
+      uartcharacterplacement("ERROR: File already exists.");
+      newline;
+    }
+  }
+  else {
+    readindia = writeindia;
+  }
+  peniscum5000 = 0;
+  }
+            }
+
+
 
     else if (echolaid(comans, "ls ") == 1) {
       if(strcmp(comans + 3, "-l") == 0) {
@@ -407,7 +484,7 @@ int returnvalue;
 extern "C" void sleemmf() { 
   uart_init();
   uartcharacterplacement(
-      "Welcome to SleemOS STM 2.1!\r\n");
+      "Welcome to SleemOS STM 2.2!\r\n");
   checkif();
   while(1) {
     startanewterm();
