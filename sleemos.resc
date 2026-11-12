@@ -1,6 +1,6 @@
 $bin?=@https://github.com/SleemEMG/SleemOS/releases/latest/download/SleemOS.bin
 mach create "SleemOS"
-machine LoadPlatformDescription @https://github.com/SleemEMG/SleemOS/sleemos.repl
+machine LoadPlatformDescription @https://raw.githubusercontent.com/SleemEMG/SleemOS/main/sleemos.repl
 
 macro reset
 """
