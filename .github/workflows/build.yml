@@ -17,3 +17,15 @@ jobs:
         with:
           name: SleemOS-bin
           path: SleemOS.bin
+
+  host-tool:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build sleemfsdk
+        shell: bash
+        run: g++ -O2 bfstools/sleemfsdk.cpp -o sleemfsdk.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sleemfsdk-exe
+          path: sleemfsdk.exe
