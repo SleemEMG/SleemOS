@@ -1,4 +1,4 @@
-// Sleem File System 6.0 (informally SleemFS) designed for SleemOS STM
+// Sleem File System 7.0 (informally SleemFS) designed for SleemOS STM
 // credits: v3x, osdev (credits for software used outside this file in other files)
 
 #include <stdint.h>
@@ -77,7 +77,7 @@ void saveshit() {
     uint32_t *tastyshit = (uint32_t *)shit;
     int rottenshit = 0;
     sleemflashings[0] = 0x534C4653;
-    sleemflashings[1] = 6;
+    sleemflashings[1] = 7;
     while((*flashsr & (1u << 16)) == 65536) {
         }
     while (rottenshit < (sizeof(shit) / sizeof(uint32_t))) {
@@ -249,17 +249,17 @@ if(shit[0].ifusedornotused == false) {
 
     void checkif() {
         if(sleemflashings[0] == 0x534C4653) {
-            if(sleemflashings[1] == 6) {
+            if(sleemflashings[1] == 7) {
             loadshit();
             }
             else {
-            uartcharacterplacement("Incompatible filesystem version! Writing SleemFS 6");
+            uartcharacterplacement("Incompatible filesystem version! Writing SleemFS 7");
             uartcharacterplacement("\r\n");
             saveshit();  
             }
         }
         else {
-            uartcharacterplacement("Invalid filesystem, writing SleemFS 6...");
+            uartcharacterplacement("Invalid filesystem, writing SleemFS 7...");
             uartcharacterplacement("\r\n");
             saveshit();
         }
@@ -287,6 +287,35 @@ if(shit[0].ifusedornotused == false) {
         return 1;
     }
     }
+
+    int writeshitfileedition(const char* forforfindingshit3, const char* forcontentsandshi1) {
+      forwritingshit = findshit(forforfindingshit3); 
+      if(forwritingshit == -1) {
+        uartcharacterplacement("\r\n");
+        uartcharacterplacement("Invalid file!");
+        uartcharacterplacement("\r\n");
+        return 0;
+      }
+      else {
+        int icutmyfuckingfinger = 0;
+        while(forcontentsandshi1[icutmyfuckingfinger] != '\0') {
+        icutmyfuckingfinger++;
+        }
+        if(sizeof(shit[forwritingshit].doomscroll) > icutmyfuckingfinger) {
+        shit[forwritingshit].sizeofdoomscroll = icutmyfuckingfinger;
+        uartcharacterplacement("\r\n");
+        copyshit2(shit[forwritingshit].doomscroll, forcontentsandshi1);
+        return 1;
+    }
+    else {
+        newline;
+        uartcharacterplacement("File too big!");
+        newline; // penis
+        return 0;
+    }
+    }
+    }
+
     void hexshitdump() {
     forhexdumpingshit = findshit(comans + nameofshit); 
     

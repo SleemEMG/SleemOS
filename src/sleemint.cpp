@@ -1,4 +1,4 @@
-// Sleem Interpreter 2.0 (informally SleemInt) designed for SleemOS STM
+// Sleem Programming Interpreter 3.0 (informally SleemInt) designed for SleemOS STM
 // credits: v3x, osdev (credits for software used outside this file in other files)
 
 #include "../include/kernel.h"
@@ -59,6 +59,9 @@ if(leng > 3) {
 if(indexofshit != -1) {
     int semishit2 = 0;
     char *hi = shit[indexofshit].doomscroll; while (*hi != '\0') {
+    while(*hi == ' ') {
+            hi++;
+        } 
                 int semishit = 0;
             while(hi[semishit] != '\0') {
             semishit++;;
@@ -67,6 +70,7 @@ if(indexofshit != -1) {
             semishit2 = 1;
             break;
     }
+
 
 }
 
@@ -92,6 +96,31 @@ if(indexofshit != -1) {
         termcommandsssss();
         uartcharacterplacement("\r\n");
         }
+    else if (echolaid(hi, "sleep(seconds) ") == 1) {
+        uint32_t seconddds = 0;
+        for(char* timingshit = hi + 15; *timingshit >= '0' && *timingshit <= '9'; timingshit++) {
+            seconddds = (seconddds * 10) + *timingshit - '0';
+        }
+        uint32_t tiksbutsleemint = tiks;
+        while(tiks - tiksbutsleemint < seconddds * 1000) {
+            __asm volatile("wfi");
+         }
+        }
+    else if (echolaid(hi, "sleep(minutes) ") == 1) {
+        uint32_t seconddds = 0;
+        for(char* timingshit = hi + 15; *timingshit >= '0' && *timingshit <= '9'; timingshit++) {
+            seconddds = (seconddds * 10) + *timingshit - '0';
+        }
+        uint32_t tiksbutsleemint = tiks;
+        while(tiks - tiksbutsleemint < seconddds * 60000) {
+            if(readindia == writeindia) {
+            }
+        else {
+            break;
+         }
+            __asm volatile("wfi");
+         }
+        }
     else {
         uartcharacterplacement("Not implemented!");
     }
@@ -103,6 +132,9 @@ if(indexofshit != -1) {
             hi = hi + semishit + 1;
             semishit2 = 0;
             }
+                while(*hi == ' ') {
+            hi++;
+        } // i moved this for no fuckign reason wahatver
 
 }
         }

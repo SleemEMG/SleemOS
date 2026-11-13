@@ -23,3 +23,4 @@ extern int forremovingshit;
 extern int forlistingshit;
 extern const char forhexdumping2[];
 extern int forhexdumpingshit;
+extern int writeshitfileedition(const char* forforfindingshit3, const char* forcontentsandshi1);

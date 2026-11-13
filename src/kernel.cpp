@@ -1,5 +1,5 @@
-// Sleem Operating System STM 2.2 (informally SleemOS) designed for SleemOS STM development board (armv6-m stm32g0) 
-// BITNL 2.2
+// Sleem Operating System STM 2.3 (informally SleemOS) designed for SleemOS STM development board (armv6-m stm32g0) 
+// BITNL 2.3
 // credits: v3x, osdev (credits for software used outside this file in other files)
 
 #include <stdint.h>
@@ -32,6 +32,7 @@ const char* comans;
 int peniscum5000 = 0;
 int peniscum6000;
 int overwarn = 0;
+char filesizearray[256];
 void uart_init() {
 
   *rcc_iopenr |= (1 << 0);   // reset and clock control io enable reg afaik
@@ -244,7 +245,7 @@ int returnvalue; // commit
     else if (strcmp(comans, "neofetch") == 0) {
       uint32_t msp;
       __asm volatile ("mrs %0, msp" : "=r" (msp));
-      uartcharacterplacement("\r\nOS: SleemOS STM \r\nBuild: 2.2 \r\nKernel: BITNL 2.2 \r\nFree RAM: ");
+      uartcharacterplacement("\r\nOS: SleemOS STM \r\nBuild: 2.3 \r\nKernel: BITNL 2.3 \r\nFree RAM: ");
       uintptr_t bieses = reinterpret_cast<uintptr_t>(&_bss_end);
       uint32tonumber(msp - bieses);
       uartcharacterplacement(" sleems (joke its bytes) \r\n");
@@ -340,7 +341,6 @@ int returnvalue; // commit
         filesize = givcharacter();
         localtime = tiks;
       }
-      char filesizearray[256];
       for(int filesizecounter = 0; filesizecounter < filesize; filesizecounter++) {
       if(readindia != writeindia) {
       }
@@ -484,7 +484,7 @@ int returnvalue; // commit
 extern "C" void sleemmf() { 
   uart_init();
   uartcharacterplacement(
-      "Welcome to SleemOS STM 2.2!\r\n");
+      "Welcome to SleemOS STM 2.3!\r\n");
   checkif();
   while(1) {
     startanewterm();

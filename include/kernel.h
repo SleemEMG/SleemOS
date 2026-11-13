@@ -14,3 +14,4 @@ extern volatile int readindia;
 extern volatile int writeindia;
 extern volatile uint32_t *usart2_isr;
 extern void uint32tohex(uint32_t hex);
+extern volatile uint32_t *aircr;

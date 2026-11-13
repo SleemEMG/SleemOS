@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include "../include/kernel.h"
+#include "../include/sleemfs.h"
 #define zero1 0
 #define zero2 zero1, 0
 #define zero3 zero2, 0
@@ -28,6 +29,7 @@ extern uint32_t _data_start, _data_end, _data_flash_start;
 extern uint32_t _bss_start, _bss_end;
 extern uint32_t _endoflestack; // i agree
 extern "C" void sleemmf(); // we love the byteos kernel yes we
+int returnvalueinstartup;
 
 extern volatile char storag[64];
 extern volatile int writeindia;
@@ -94,6 +96,12 @@ extern "C" void hardfault_shit(uint32_t *stack) {
             uartcharacterplacement("0x");
             uint32tohex(elr);
             uartcharacterplacement("\r\n");
+            uartcharacterplacement("Restarting in ~10-30 seconds...");
+            uartcharacterplacement("\r\n");
+        for(volatile uint32_t tiksstartup = 0; tiksstartup < 60000000; tiksstartup++) {
+        }
+        *aircr = (0x5FAu << 16) | (1u << 2);
+        __asm volatile ("dsb");
         while(1);
 }
 

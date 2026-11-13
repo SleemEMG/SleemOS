@@ -3,7 +3,7 @@
 # for github actions and easier building i suppose
 CXX = arm-none-eabi-g++
 OBJCOPY = arm-none-eabi-objcopy
-FLAGS = -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-exceptions -fno-rtti -O0 -MMD 
+FLAGS = -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-exceptions -fno-rtti -Os -MMD 
 
 all: SleemOS.bin
 
