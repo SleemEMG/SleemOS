@@ -33,6 +33,16 @@ Example, in file `echo.si`:
 <br>
 This executes `echo hi`, outputting `hi`.
 
+**sleep(seconds/minutes)** - Waits for a given amount of seconds/minutes.
+<br>
+Example, in file `timer.si`:
+<br>
+`sleep(seconds) 60`
+<br>
+This sets a 60 second timer.
+> [!WARNING]
+> In the minute timer, if you type anything the timer will immediately abort.
+
 That is all of the functions.
 
 As mentioned before, SleemInt supports semicolons.
@@ -43,14 +53,5 @@ Example, in file `echo.si`:
 <br>
 This executes `echo hi`, outputting `hi` and also outputs `bye` to USART/UART.
 
-There is also one quirk, you must not use a space after a semicolon. 
-
-This will work:
-<br>
-`execute(commands) echo hi;output(uart) bye`
-
-This will not:
-<br>
-`execute(commands) echo hi; output(uart) bye`
-
-This is because, instead of running `echo hi` and `output(uart) bye`, it will run `echo hi` and ` output(uart) bye` with a space at the start.
+> [!NOTE] 
+> The quirk where you couldn't use a space after a semicolon has been fixed.
