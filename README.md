@@ -62,8 +62,8 @@ SleemInt (or Sleem (Programming) Interpreter) is SleemOS's programming interpret
 2. `output(uart, loop)` Outputs anything after it to USART. Same idea as before but loops every time you press a space until you type exit.
 3. `execute(commands)` Executes any command after it.
 It supports semicolons.
-> [!WARNING]
-> After a semicolon, you mustn't use a space. This will be fixed.
+> [!NOTE]
+> After a semicolon, you can now use a space. The bug where you couldn't was fixed in 2.3.
 That is all of the summary about SleemInt. For more check out SleemInt.md.
 
 
